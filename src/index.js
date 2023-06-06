@@ -5,18 +5,14 @@ require("dotenv").config();
 
 const productoRoutes = require("./routes/producto");
 
-
-
 const app = express();
 const port = process.env.PORT || 9000;
-
 
 // Middleware
 
 app.use(express.json());
 app.use(cors());
 app.use('/api', productoRoutes);
-
 
 //RUTAS
 

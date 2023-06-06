@@ -16,18 +16,18 @@ router.get("/productos", (req, res) => {
 // Buscar Producto
 
 router.get("/productos/:id", (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   productoSchema
     .findById(id)
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
-}); 
-
+});
 
 // Crear Producto
 
 router.post("/productos", (req, res) => {
-  productoSchema
+  const producto = productoSchema(req.body);
+  producto
     .save()
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
@@ -36,10 +36,10 @@ router.post("/productos", (req, res) => {
 // Actualizar Producto
 
 router.put("/productos/:id", (req, res) => {
-  const {id} = req.params;
-  const {nombre,precio,tipo} = req.body;
+  const { id } = req.params;
+  const { nombre, precio, tipo } = req.body;
   productoSchema
-    .updateOne({_id: id},{ $set: { nombre, precio, tipo } })
+    .updateOne({ _id: id }, { $set: { nombre, precio, tipo } })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
@@ -47,14 +47,11 @@ router.put("/productos/:id", (req, res) => {
 // Eliminar Producto
 
 router.delete("/productos/:id", (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   productoSchema
-    .deleteOne({_id: id})
+    .deleteOne({ _id: id })
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-
-
-
 
 module.exports = router;
