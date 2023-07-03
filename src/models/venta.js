@@ -1,23 +1,33 @@
 const mongoose = require("mongoose");
 
-const ventaSchema = mongoose.Schema({
-    idCambio:{
-        type:Number,
-        required:true
-    },
-    precio:{
-        type:Number,
-        required:true
-    },
-    tipo:{
-        type:String,
-        required:true
-    }
-});
-
-// Se define una variable para poder ser utilizada 
-// en caso de ser un atributo en otro modelo
-const venta = mongoose.model('Venta', ventaSchema);
-// Y ahora se exporta para poder ser utilizado como base
-// de una llamada a la API 
-module.exports =venta;
+const VentaSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    idVentas: { type: Number, unique: true },
+    fechaCreacion: Date,
+    estaTerminada: Boolean,
+    estaPagada: Boolean,
+    productos: [
+      {
+        _id: mongoose.Schema.Types.ObjectId,
+        nombre: String,
+        precio: Number,
+        tipo: String,
+        fecha: Date,
+        // Agregación recomendada: Campos de análisis
+        cantidadVendida: { type: Number, default: 0 },
+        valorTotalVentas: { type: Number, default: 0 },
+      },
+    ],
+    servicios: [
+      {
+        _id: mongoose.Schema.Types.ObjectId,
+        name: String,
+        idCambio: String,
+        tipo: String,
+        descripcion: String,
+        productos: [mongoose.Schema.Types.ObjectId],
+        precio: Number,
+      },
+    ],
+  });
+module.exports = mongoose.model("Venta", VentaSchema);

@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
 
 const distribuidorSchema = mongoose.Schema({
-    idDIstribuidor:{
-        type:Number,
-        required:true
+    idDistribuidor: {
+      type: Number,
+      required: true,
     },
-    nombre:{
-        type:String,
-        required:true
-    }
-});
+    nombre: {
+      type: String,
+      required: true,
+    },
+    // Agregación recomendada: Campos de análisis
+    totalVentas: { type: Number, default: 0 },
+  });
 
 // Se define una variable para poder ser utilizada 
 // en caso de ser un atributo en otro modelo

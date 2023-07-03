@@ -1,15 +1,17 @@
 const mongoose = require("mongoose");
 
 const categoriaSchema = mongoose.Schema({
-    idCategoria:{
-        type:Number,
-        required:true
+    idCategoria: {
+      type: Number,
+      required: true,
     },
-    nombre:{
-        type:String,
-        required:true
-    }
-});
+    nombre: {
+      type: String,
+      required: true,
+    },
+    // Agregación recomendada: Campos de análisis
+    totalProductos: { type: Number, default: 0 },
+  });
 // Se define una variable para poder ser utilizada 
 // en caso de ser un atributo en otro modelo
 const categoria = mongoose.model('Cambio', categoriaSchema);

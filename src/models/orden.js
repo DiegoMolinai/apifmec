@@ -1,20 +1,22 @@
 const mongoose = require("mongoose");
 
 const ordenSchema = mongoose.Schema({
-    idOrden:{
-        type:Number,
-        required:true
+    idOrden: {
+      type: Number,
+      required: true,
     },
-    fecha:{
-        type:Date,
-        default:Date.now(),
-        required:true
+    fecha: {
+      type: Date,
+      default: Date.now,
+      required: true,
     },
-    tipo:{
-        type:String,
-        required:true
-    }
-});
+    tipo: {
+      type: String,
+      required: true,
+    },
+    // Agregación recomendada: Campos de análisis
+    totalOrdenes: { type: Number, default: 0 },
+  });
 
 // Se define una variable para poder ser utilizada 
 // en caso de ser un atributo en otro modelo

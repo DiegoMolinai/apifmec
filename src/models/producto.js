@@ -1,26 +1,17 @@
 const mongoose = require("mongoose");
 
-const productoSchema = mongoose.Schema({
-    nombre:{
-        type:String,
-        required:true
-    },
-    precio:{
-        type:Number,
-        required:true
-    },
-    tipo:{
-        type:String,
-        required:true
-    }
+const productoSchema = new mongoose.Schema({
+  nombre: { type: String, required: true },
+  precio: { type: Number, required: true },
+  tipo: { type: String, required: true },
+  fecha: { type: Date, required: true },
+  cantidad: { type: Date, required: true },
+  categoria: { type: mongoose.Schema.Types.ObjectId, ref: 'Categoria', required: true },
+  // Agregación recomendada: Campos de análisis
+  ventasTotales: { type: Number, default: 0 },
+  valorTotalVentas: { type: Number, default: 0 },
 });
 
-// Se define una variable para poder ser utilizada 
-// en caso de ser un atributo en otro modelo
+const producto = mongoose.model('Producto', productoSchema);
 
-const producto = mongoose.model('Producto', productoSchema); 
-
-// Y ahora se exporta para poder ser utilizado como base
-// de una llamada a la API 
-
-module.exports =producto;
+module.exports = producto;

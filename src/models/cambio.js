@@ -1,20 +1,22 @@
 const mongoose = require("mongoose");
 
 const cambioSchema = mongoose.Schema({
-    idCambio:{
-        type:Number,
-        required:true
-    },
-    fecha:{
-        type:Date,
+    idCambio: {
+        type: Number,
+        required: true,
+      },
+      fecha: {
+        type: Date,
         default: Date.now,
-        required:true
-    },
-    tipo:{
-        type:String,
-        required:true
-    }
-});
+        required: true,
+      },
+      tipo: {
+        type: String,
+        required: true,
+      },
+      // Agregación recomendada: Campos de análisis
+      totalCambios: { type: Number, default: 0 },
+    });
 
 // Se define una variable para poder ser utilizada 
 // en caso de ser un atributo en otro modelo

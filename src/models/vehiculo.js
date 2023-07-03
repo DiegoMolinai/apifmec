@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const vehiculoSchema = mongoose.Schema({
     idCambio:{
         type:Number,
-        required:true
+        required:true,
+        unique: true
     },
     precio:{
         type:Number,
