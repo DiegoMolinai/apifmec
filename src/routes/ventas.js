@@ -37,7 +37,7 @@ router.post('/ventas', async (req, res) => {
   }
 });
 
-// Actualizar un servicio
+// Actualizar una venta
 router.put('/ventas/:id', async (req, res) => {
   try {
     const venta = await Servicio.findByIdAndUpdate(req.params.id, req.body, {
@@ -62,6 +62,66 @@ router.delete('/ventas/:id', async (req, res) => {
     res.json({ message: 'Venta eliminada correctamente' });
   } catch (error) {
     res.status(500).json({ error: 'Error al eliminar la venta' });
+  }
+});
+
+
+//Obtener Ventas basado en si estan pagadas o no:
+
+router.get('/ventas/pagadas', async (req, res) => {
+  try {
+    const ventas = await Venta.find({ estaPagada: true });
+    res.json(ventas);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las Ventas' });
+  }
+});
+
+
+//Obtener Ventas basado en si están terminadas o no:
+
+router.get('/ventas/terminadas', async (req, res) => {
+  try {
+    const ventas = await Venta.find({ estaTerminada: true });
+    res.json(ventas);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las Ventas' });
+  }
+});
+
+
+//Obtener el total de ventas:
+
+router.get('/ventas/total', async (req, res) => {
+  try {
+    const totalVentas = await Venta.countDocuments();
+    res.json(totalVentas);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener el total de Ventas' });
+  }
+});
+
+
+// Obtener ventas en un rango de fechas:
+
+router.get('/ventas/rango', async (req, res) => {
+  try {
+    const { fechaInicio, fechaFin } = req.query;
+
+    if(!fechaInicio || !fechaFin) {
+      return res.status(400).json({ error: 'Se requiere fecha de inicio y fin' });
+    }
+
+    const ventas = await Venta.find({
+      fechaCreacion: {
+        $gte: new Date(new Date(fechaInicio).setHours(0, 0, 0)),
+        $lte: new Date(new Date(fechaFin).setHours(23, 59, 59))
+      }
+    });
+
+    res.json(ventas);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las Ventas' });
   }
 });
 

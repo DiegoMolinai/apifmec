@@ -6,6 +6,7 @@ const servicioSchema = new mongoose.Schema(
     idCambio: { type: String, required: true, unique: true },
     tipo: { type: String, required: true },
     descripcion: { type: String, required: true },
+    cambio: { type: mongoose.Schema.Types.ObjectId, ref: "Cambio" },
     productos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Producto" }],
     precio: { type: Number, required: true },
     // Agregación recomendada: Campos de análisis
@@ -14,9 +15,7 @@ const servicioSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-// Se define una variable para poder ser utilizada
-// en caso de ser un atributo en otro modelo
-const servicio = mongoose.model("Servicio", servicioSchema);
-// Y ahora se exporta para poder ser utilizado como base
-// de una llamada a la API
-module.exports = servicio;
+
+const Servicio = mongoose.model("Servicio", servicioSchema);
+
+module.exports = Servicio;

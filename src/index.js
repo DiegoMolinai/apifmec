@@ -10,6 +10,8 @@ const notificacionRoutes = require('./routes/notificaciones');
 const usuariosRouter = require('./routes/usuarios');
 const ordenesRouter = require('./routes/ordenes');
 const distribuidoresRouter = require('./routes/distribuidores');
+const categoriasRouter = require('./routes/categorias')
+const cambiosRoutes = require('./routes/cambios')
 
 
 const app = express();
@@ -26,6 +28,8 @@ app.use('/api', notificacionRoutes);
 app.use('/api', usuariosRouter);
 app.use('/api', ordenesRouter);
 app.use('/api', distribuidoresRouter);
+app.use('/api', categoriasRouter);
+app.use('/api', cambiosRoutes)
 
 //RUTAS
 
