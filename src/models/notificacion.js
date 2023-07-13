@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const notificacionSchema = mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId, // Agrega esta línea para definir el tipo de dato para el campo _id
   idNotificacion: {
     type: Number,
     required: true,
@@ -15,15 +16,14 @@ const notificacionSchema = mongoose.Schema({
     default: "No Hay Descripcion",
     required: true,
   },
-    // Agregación recomendada: Campos de análisis
-    fechaCreacion: { type: Date, default: Date.now },
-    vistas: { type: Number, default: 0 },
-},{timestamps:true});
+  fechaCreacion: { type: Date, default: Date.now },
+  vistas: { type: Number, default: 0 },
+  terminada: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+}, { timestamps: true });
 
-
-// Se define una variable para poder ser utilizada
-// en caso de ser un atributo en otro modelo
 const notificaciones = mongoose.model("Notificaciones", notificacionSchema);
-// Y ahora se exporta para poder ser utilizado como base
-// de una llamada a la API
 module.exports = notificaciones;

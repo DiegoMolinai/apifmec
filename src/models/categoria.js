@@ -9,10 +9,6 @@ const categoriaSchema = mongoose.Schema({
       type: String,
       required: true,
     },
-    productos: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Producto'
-    }],
     // Agregación recomendada: Campos de análisis
     totalProductos: { type: Number, default: 0 },
   });

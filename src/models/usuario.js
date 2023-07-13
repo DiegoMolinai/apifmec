@@ -18,7 +18,8 @@ const UsuarioSchema = new mongoose.Schema({
     type: String,
     enum: ['admin', 'user', 'trabajador'],
     default: 'user'
-  }
+  },
+  vendedor:{ type: String, enum: ['vendedor 1', 'vendedor 2', 'vendedor 3'], default:'vendedor 1'}
 });
 
 const Usuario = mongoose.model('Usuario', UsuarioSchema);

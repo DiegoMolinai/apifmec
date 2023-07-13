@@ -47,6 +47,18 @@ router.delete("/notificaciones/:id", (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
+// Notificaciones No Terminadas
+router.get("/notificaciones/no-terminadas", (req, res) => {
+  notificacionSchema
+    .find({ terminada: false })
+    .sort({ fechaCreacion: -1 })
+    .then((data) => res.json(data))
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: "Error en la consulta de notificaciones" });
+    });
+});
+
 
 
 module.exports = router;

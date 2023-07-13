@@ -2,20 +2,20 @@ const express = require('express');
 const router = express.Router();
 const Venta = require('../models/venta');
 
-// Listar todos los servicios
+// Listar todas las ventas
 router.get('/ventas', async (req, res) => {
   try {
-    const venta = await Venta.find();
-    res.json(venta);
+    const ventas = await Venta.find();
+    res.json(ventas);
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener las Ventas' });
   }
 });
 
-// Obtener un servicio por su ID
-router.get('/ventas', async (req, res) => {
+// Obtener una venta por su ID
+router.get('/ventas/:id', async (req, res) => {
   try {
-    const venta = await Servicio.findById(req.params.id);
+    const venta = await Venta.findById(req.params.id);
     if (!venta) {
       return res.status(404).json({ error: 'Venta no encontrada' });
     }
@@ -28,19 +28,19 @@ router.get('/ventas', async (req, res) => {
 // Crear una nueva venta
 router.post('/ventas', async (req, res) => {
   try {
-    const venta = new Servicio(req.body);
+    const venta = new Venta(req.body);
     await venta.save();
     res.status(201).json(venta);
-    console.log("Venta Ingresada" + venta);
+    console.log('Venta ingresada:', venta);
   } catch (error) {
     res.status(500).json({ error: 'Error al crear la venta' });
   }
 });
 
 // Actualizar una venta
-router.put('/ventas/:id', async (req, res) => {
+router.patch('/ventas/:id', async (req, res) => {
   try {
-    const venta = await Servicio.findByIdAndUpdate(req.params.id, req.body, {
+    const venta = await Venta.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     if (!venta) {
@@ -52,7 +52,7 @@ router.put('/ventas/:id', async (req, res) => {
   }
 });
 
-// Eliminar un servicio
+// Eliminar una venta
 router.delete('/ventas/:id', async (req, res) => {
   try {
     const venta = await Venta.findByIdAndRemove(req.params.id);
@@ -65,33 +65,27 @@ router.delete('/ventas/:id', async (req, res) => {
   }
 });
 
-
-//Obtener Ventas basado en si estan pagadas o no:
-
+// Obtener ventas pagadas
 router.get('/ventas/pagadas', async (req, res) => {
   try {
     const ventas = await Venta.find({ estaPagada: true });
     res.json(ventas);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener las Ventas' });
+    res.status(500).json({ error: 'Error al obtener las Ventas pagadas' });
   }
 });
 
-
-//Obtener Ventas basado en si están terminadas o no:
-
+// Obtener ventas terminadas
 router.get('/ventas/terminadas', async (req, res) => {
   try {
     const ventas = await Venta.find({ estaTerminada: true });
     res.json(ventas);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener las Ventas' });
+    res.status(500).json({ error: 'Error al obtener las Ventas terminadas' });
   }
 });
 
-
-//Obtener el total de ventas:
-
+// Obtener el total de ventas
 router.get('/ventas/total', async (req, res) => {
   try {
     const totalVentas = await Venta.countDocuments();
@@ -101,14 +95,12 @@ router.get('/ventas/total', async (req, res) => {
   }
 });
 
-
-// Obtener ventas en un rango de fechas:
-
+// Obtener ventas en un rango de fechas
 router.get('/ventas/rango', async (req, res) => {
   try {
     const { fechaInicio, fechaFin } = req.query;
 
-    if(!fechaInicio || !fechaFin) {
+    if (!fechaInicio || !fechaFin) {
       return res.status(400).json({ error: 'Se requiere fecha de inicio y fin' });
     }
 
@@ -121,7 +113,7 @@ router.get('/ventas/rango', async (req, res) => {
 
     res.json(ventas);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener las Ventas' });
+    res.status(500).json({ error: 'Error al obtener las Ventas en rango de fechas' });
   }
 });
 
