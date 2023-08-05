@@ -2,6 +2,48 @@ const express = require('express');
 const router = express.Router();
 const Venta = require('../models/venta');
 
+
+router.patch('/:idVenta', async (req, res) => {
+  try {
+      const ventaId = req.params.idVenta;
+      
+      const venta = await Venta.findOne({ idVentas: ventaId });
+
+      if (!venta) {
+          return res.status(404).json({
+              error: 'Venta no encontrada'
+          });
+      }
+      
+      const updatedData = req.body;
+      
+      if (updatedData.estaTerminada !== undefined) {
+          venta.estaTerminada = updatedData.estaTerminada;
+      }
+      
+      if (updatedData.estaPagada !== undefined) {
+          venta.estaPagada = updatedData.estaPagada;
+      }
+      
+      if (updatedData.productos) {
+          venta.productos = updatedData.productos;
+      }
+
+      if (updatedData.servicios) {
+          venta.servicios = updatedData.servicios;
+      }
+
+      await venta.save();
+      
+      res.status(200).json(venta);
+  } catch (error) {
+      console.error(error);
+      res.status(500).send({
+          error: 'Hubo un error al intentar actualizar la venta.'
+      });
+  }
+});
+
 // Listar todas las ventas
 router.get('/ventas', async (req, res) => {
   try {

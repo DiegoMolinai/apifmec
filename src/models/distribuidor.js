@@ -1,14 +1,8 @@
 const mongoose = require("mongoose");
 
 const distribuidorSchema = mongoose.Schema({
-    idDistribuidor: {
-      type: Number,
-      required: true,
-    },
-    nombre: {
-      type: String,
-      required: true,
-    },
+    idDistribuidor: { type: Number, required: true },
+    nombre: { type: String, required: true },
     // Agregación recomendada: Campos de análisis
     totalVentas: { type: Number, default: 0 },
   });

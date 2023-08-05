@@ -9,21 +9,12 @@ const servicioSchema = new mongoose.Schema(
     cambio: { type: String, required: true },
     productos: [
       {
-        nombre: { type: String, required: true },
-        precio: { type: Number, required: true },
-        tipo: { type: String, required: true },
-        fecha: { type: Date, required: true },
-        cantidad: { type: Date, required: true },
-        categoria: [
-          {
-            idCategoria: { type: Number, required: true },
-            nombre: { type: String, required: true },
-            // Agregación recomendada: Campos de análisis
-            totalProductos: { type: Number, default: 0 },
-          },
-        ],
-        ventasTotales: { type: Number, default: 0 },
-        valorTotalVentas: { type: Number, default: 0 },
+        producto: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Producto",
+          required: true,
+        },
+        cantidad: { type: Number, required: true },
       },
     ],
     precio: { type: Number, required: true },

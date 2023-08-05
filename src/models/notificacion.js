@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
 
 const notificacionSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId, // Agrega esta línea para definir el tipo de dato para el campo _id
-  idNotificacion: {
-    type: Number,
-    required: true,
-  },
+  _id: mongoose.Schema.Types.ObjectId,
+  idNotificacion: { type: Number, required: true },
   titulo: {
     type: String,
     default: "No Hay Titulo",
@@ -18,11 +15,7 @@ const notificacionSchema = mongoose.Schema({
   },
   fechaCreacion: { type: Date, default: Date.now },
   vistas: { type: Number, default: 0 },
-  terminada: {
-    type: Boolean,
-    default: false,
-    required: true,
-  },
+  terminada: { type: Boolean, default: false, required: true},
 }, { timestamps: true });
 
 const notificaciones = mongoose.model("Notificaciones", notificacionSchema);
